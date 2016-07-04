@@ -23,4 +23,3 @@ Server logs will be in a `gunicorn.log` in this repository's directory.
 	$ heroku pg:psql
 	=> CREATE EXTENSION postgis;
 
-

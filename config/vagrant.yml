@@ -1,0 +1,11 @@
+django:
+  settings_module: madenearyou.settings.vagrant
+virtualenv:
+  envname: made-near-you
+foreman:
+  procfile: Procfile
+db:
+  name: madenearyou
+  user: madenearyou
+  password: madenearyou
+

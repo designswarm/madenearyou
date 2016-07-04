@@ -1,2 +1,2 @@
-web: gunicorn madenearyou.wsgi > /vagrant/gunicorn.log 2>&1
+web: gunicorn --reload madenearyou.wsgi > /vagrant/gunicorn.log 2>&1
 

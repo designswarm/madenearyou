@@ -67,6 +67,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'madenearyou.wsgi.application'
 
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+DATABASES = {}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

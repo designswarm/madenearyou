@@ -3,9 +3,10 @@ django:
 virtualenv:
   envname: made-near-you
 foreman:
-  procfile: Procfile
+  procfile: Procfile_vagrant
 db:
   name: madenearyou
   user: madenearyou
   password: madenearyou
+use_geodjango: 'true'
 

@@ -2,9 +2,10 @@ from .defaults import *
 
 DEBUG = True
 
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'madenearyou',
         'USER': 'madenearyou',
         'PASSWORD': 'madenearyou',

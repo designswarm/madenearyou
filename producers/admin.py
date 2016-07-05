@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.gis.db import models
+from django.forms import CheckboxSelectMultiple
 
 from .models import Product, Producer
 
@@ -38,4 +40,8 @@ class ProducerAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = ('time_created', 'time_modified',)
+
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
 

@@ -5,7 +5,7 @@ If you have Vagrant installed, then doing this should set up a Vagrant box based
 
 	$ vagrant up
 
-If all goes well, access the local dev site at [http://localhost:5000/](http://localhost:5000/).
+If all goes well, access the local dev site at [http://localhost:5000/](http://localhost:5000/). This code repository will be linked to `/vagrant` on the Vagrant machine.
 
 If setting up the database from scratch, run initial migrations and set the Django admin superuser:
 
@@ -14,11 +14,25 @@ If setting up the database from scratch, run initial migrations and set the Djan
 	vagrant$ ./manage.py migrate
 	vagrant$ ./manage.py createsuperuser
 
-Shut down the box using:
+If you need/want to log into the postgres database then this will connect as a superuser:
+
+	$ vagrant ssh
+	vagrant$ sudo -u postgres psql madenearyou
+
+Or connect as the app's database user:
+
+	$ vagrant ssh
+	vagrant$ PGUSER=madenearyou PGPASSWORD=madenearyou psql -h localhost madenearyou
+
+Sleep the Vagrant box with:
+
+	$ vagrant suspend
+
+Or, shut down the box using:
 
 	$ vagrant halt
 
-Start it again with:
+Wake/start it again with:
 
 	$ vagrant up --provision
 
@@ -40,13 +54,20 @@ So I had to:
 
 ## Heroku
 
+Create your app on Heroku.
 
-Set the buildpacks:
+Add the "Heroku Postgres" Add-on.
+
+In the top level of your checked-out code, add Heroku as a git remote (replacing `your-app-name` with your app's name):
+
+	$ heroku git:remote -a your-app-name 
+
+Set the buildpacks for Python and the stuff required for GeoDjango:
 
 	$ heroku buildpacks:set heroku/python
 	$ heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3
 
-Set the environment variables:
+Set the environment variables (replacing `your-secret-key-here` with one for your site ([eg, from here](http://www.miniwebtool.com/django-secret-key-generator/)):
 
 	$ heroku config:set DJANGO_SETTINGS_MODULE=madenearyou.settings.heroku
 	$ heroku config:set config:set DJANGO_SECRET_KEY=your-secret-key-here
@@ -59,8 +80,10 @@ Enable PostGIS on the database:
 
 	$ heroku pg:psql
 	=> CREATE EXTENSION postgis;
+	=> \q
 
 If setting up the database from scratch, run initial migrations and set the Django admin superuser:
 
 	$ heroku run python manage.py migrate
 	$ heroku run python manage.py createsuperuser
+

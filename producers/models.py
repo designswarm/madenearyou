@@ -38,12 +38,15 @@ class Producer(TimeStampedModelMixin, models.Model):
                             validators=[validate_uk_postcode], max_length=8)
     phone = models.CharField(blank=False, null=False,
                         validators=[validate_uk_phone_number], max_length=15)
-    email = models.EmailField(blank=True, null=False)
+    email = models.EmailField(blank=False, null=False)
     url = models.URLField(blank=True, null=False, verbose_name="URL")
 
     #latitude = models.FloatField(null=True, blank=True)
     #longitude = models.FloatField(null=True, blank=True)
-    point = models.PointField(srid=4326, blank=True)
+    point = models.PointField(srid=4326, blank=True, null=True)
+
+    is_visible = models.BooleanField(default=False,
+            help_text="Check this to make this Producer visible on the site.")
 
     products = models.ManyToManyField(Product)
 

@@ -39,7 +39,7 @@ class ProducerAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('time_created', 'time_modified',)
+    readonly_fields = ('point', 'time_created', 'time_modified',)
 
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},

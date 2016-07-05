@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
 
+from . import managers
 from .validators import validate_uk_phone_number, validate_uk_postcode
 
 
@@ -46,11 +47,13 @@ class Producer(TimeStampedModelMixin, models.Model):
     point = models.PointField(srid=4326, blank=True, null=True)
 
     is_visible = models.BooleanField(default=False,
-            help_text="Check this to make this Producer visible on the site.")
+            help_text="Check box to make this Producer visible on the site.")
 
     products = models.ManyToManyField(Product)
 
     objects = models.GeoManager()
+    # Only producers with is_visible=True:
+    visible_objects = managers.VisibleProducersManager()
 
     def __str__(self):
         return self.business_name

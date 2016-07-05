@@ -24,11 +24,11 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Producer)
 class ProducerAdmin(admin.ModelAdmin):
-    list_display = ('business_name', 'time_created',)
+    list_display = ('business_name', 'is_visible', 'time_created',)
 
     fieldsets = (
         (None, {
-            'fields': ('business_name', 'contact_name', 'phone', 'email',
+            'fields': ('business_name', 'is_visible', 'contact_name', 'phone', 'email',
                         'url', 'products', )
         }),
         ('Location', {

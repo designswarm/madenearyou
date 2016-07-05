@@ -1,1 +1,1 @@
-web: gunicorn madenearyou.wsgi --log-level debug --log-file -
+web: gunicorn madenearyou.wsgi --log-file -

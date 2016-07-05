@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block head_title %}{% block title %}{% endblock %} (Made Near You){% endblock %}</title>
+
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static "bootstrap.css" %}">
+
+        {% block head_extra %}
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="container">
+
+            {% block content %}
+            {% endblock content %}
+
+        </div>
+
+    {% block footer %}
+        {# Use this if you need to add a visible footer to every page. #}
+    {% endblock %}
+
+    {% block foot_extra %}
+        {# Use this if you need to add JS etc to the foot of the page. #}
+    {% endblock %}
+    </body>
+</html>
+

@@ -1,0 +1,10 @@
+{% extends 'producers/base.html' %}
+
+{% block title %}{{ producer.business_name }}{% endblock %}
+
+{% block content %}
+	<p>{{ producer.business_name }}</p>
+	<p>{{ producer.contact_name }}</p>
+	<p>{{ producer.postcode }}</p>
+{% endblock content %}
+

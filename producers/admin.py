@@ -5,17 +5,18 @@ from .models import Product, Producer
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'time_created',)
+    list_display = ('name', 'slug', 'order', 'time_created',)
 
     fieldsets = (
         (None, {
-            'fields': ('name', )
+            'fields': ('name', 'slug', 'order', )
         }),
         ('Meta', {
             'fields': ('time_created', 'time_modified',)
         }),
     )
 
+    prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ('time_created', 'time_modified',)
 
 

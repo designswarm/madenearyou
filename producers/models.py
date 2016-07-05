@@ -17,9 +17,17 @@ class TimeStampedModelMixin(models.Model):
 
 class Product(TimeStampedModelMixin, models.Model):
     name = models.CharField(blank=False, null=False, max_length=30)
+    slug = models.SlugField(blank=False, null=False, max_length=30,
+            unique=True, help_text="Used in URLs referring to this product.")
+    order = models.PositiveSmallIntegerField(blank=False, null=False,
+            default=10,
+            help_text="Products are ordered by this number.")
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['order']
 
 
 class Producer(TimeStampedModelMixin, models.Model):
@@ -48,6 +56,9 @@ class Producer(TimeStampedModelMixin, models.Model):
         #self.point = Point(self.longitude, self.latitude)
         self.postcode = self.postcode.upper()
         super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['business_name']
 
 
 

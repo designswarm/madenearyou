@@ -7,7 +7,9 @@
         <title>{% block head_title %}{% block title %}{% endblock %} (Made Near You){% endblock %}</title>
 
         {% load staticfiles %}
-        <link rel="stylesheet" href="{% static "bootstrap.css" %}">
+		{% comment %}
+        <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+		{% endcomment %}
 
         {% block head_extra %}
         {% endblock %}

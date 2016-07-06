@@ -6,8 +6,69 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 			<h1>{{ producer.business_name }}</h1>
-			<p>{{ producer.contact_name }}</p>
-			<p>{{ producer.postcode }}</p>
+
+			{% if producer.contact_name %}
+				<p class="row">
+					<span class="col-sm-3">
+						<strong>Contact</strong>
+					</span>
+					<span class="col-sm-9">
+						{{ producer.contact_name }}
+					</span>
+				</p>
+			{% endif %}
+
+			{% if producer.phone %}
+				<p class="row">
+					<span class="col-sm-3">
+						<strong>Phone</strong>
+					</span>
+					<span class="col-sm-9">
+						{{ producer.phone }}
+					</span>
+				</p>
+			{% endif %}
+
+			{% if producer.email %}
+				<p class="row">
+					<span class="col-sm-3">
+						<strong>Email</strong>
+					</span>
+					<span class="col-sm-9">
+						<a href="mailto:{{ producer.email }}">{{ producer.email}}</a>
+					</span>
+				</p>
+			{% endif %}
+
+			{% if producer.url %}
+				<p class="row">
+					<span class="col-sm-3">
+						<strong>URL</strong>
+					</span>
+					<span class="col-sm-9">
+						<a href="{{ producer.url }}">{{ producer.url }}</a>
+					</span>
+				</p>
+			{% endif %}
+
+			<h2 class="h5">Products</h2>
+			<ul>
+				{% for product in producer.products.all %}
+					<li>{{ product.name }}</li>
+				{% endfor %}
+			</ul>
+			
+			{% if producer.postcode %}
+				<p class="row">
+					<span class="col-sm-3">
+						<strong>Postcode</strong>
+					</span>
+					<span class="col-sm-9">
+						{{ producer.postcode }}
+					</span>
+				</p>
+			{% endif %}
+
 		</div> <!-- .col -->
 	</div> <!-- .row -->
 {% endblock content %}

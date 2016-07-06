@@ -5,7 +5,6 @@ from django.conf import settings
 
 def api_keys(request):
     return {
-        'MAPBOX_MAP_ID': settings.MAPBOX_MAP_ID,
         'MAPBOX_API_KEY': settings.MAPBOX_API_KEY,
         #'GOOGLE_ANALYTICS_ID': settings.GOOGLE_ANALYTICS_ID,
     }

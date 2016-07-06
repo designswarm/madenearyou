@@ -8,12 +8,33 @@ from . import validators
 attrs = {'class': 'form-control'}
 required_attrs = {'class': 'form-control', 'required': 'required',}
 
+class FindProducerForm(forms.Form):
+    postcode = forms.CharField(required=True, max_length=8,
+                                widget=forms.TextInput(attrs=required_attrs))
+    honeypot = forms.CharField(required=False,
+                            label='If you enter anything in this field '\
+                                'your data will be treated as spam')
+
+    def clean_postcode(self):
+        """Check postcode validity, as a format."""
+        value = self.cleaned_data["postcode"]
+        if value:
+            validators.validate_uk_postcode(value)
+        return value.strip()
+
+    def clean_honeypot(self):
+        """Check that nothing's been entered into the honeypot."""
+        value = self.cleaned_data["honeypot"]
+        if value:
+            raise forms.ValidationError(self.fields["honeypot"].label)
+        return value
+
 
 class ProducerForm(forms.ModelForm):
     products = forms.ModelMultipleChoiceField(queryset=Product.objects.all())
     honeypot = forms.CharField(required=False,
                             label='If you enter anything in this field '\
-                                'your registration will be treated as spam')
+                                'your data will be treated as spam')
 
     class Meta:
         model = Producer

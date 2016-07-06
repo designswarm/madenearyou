@@ -32,22 +32,7 @@
 							</div>
 
 						{% else %}
-
-							<div class="form-group m-b-2 {% if field.errors %} has-danger{% endif %}"{% if field.name == 'honeypot' %} style="display:none;"{% endif %}>
-								<label class="form-control-label" for="id_{{ field.html_name }}">
-									{{ field.label }}
-								</label>
-
-								{{ field }}
-
-								{% if field.errors %}
-									<span class="p-l-1 text-danger">{{ field.errors|join:'<br />' }}</span>
-								{% endif %}
-								
-								{% if field.help_text %}
-									<small class="text-muted">{{ field.help_text }}</small>
-								{% endif %}
-							</div>
+							{% include 'producers/includes/form_field.html' %}
 						{% endif %}
 
 					{% endfor %}

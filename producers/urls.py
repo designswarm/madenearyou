@@ -12,6 +12,10 @@ urlpatterns = [
     url(r'^404/$', TemplateView.as_view(template_name='404.html')),
     url(r'^500/$', TemplateView.as_view(template_name='500.html')),
 
+    url(r'^map/$',
+        views.MapView.as_view(),
+        name='producers_map'),
+
     url(r'^producer/add/$',
         views.ProducerAddView.as_view(),
         name='producer_add'),

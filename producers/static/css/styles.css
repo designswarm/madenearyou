@@ -1,12 +1,14 @@
 
 .map {
     border: 1px solid #000;
+    width: 100%;
 }
 .map-producer {
-    width: 100%;
     height: 400px;
 }
-
+.map-producers {
+    height: 600px;
+}
 
 /* fix for https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742 */
 [hidden="hidden"][style*="display: block;"] {

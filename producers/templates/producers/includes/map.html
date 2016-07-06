@@ -1,0 +1,59 @@
+{% comment %}
+	Expects:
+		MAPBOX_API_KEY
+		latitude and longitude for the map centre.
+		Either:
+			'producer' object if we're only displaying one.
+			'producers' queryset if we're displaying several.
+
+{% endcomment %}
+
+{% if MAPBOX_API_KEY %}
+	<div class="row">
+		<div id="map" class="map {% if producer %}map-producer{% elif producers %}map-producers{% endif %}"></div>
+		<script>
+			var zoom = 12;
+
+			{% if producers %}
+				zoom = 11;
+			{% endif %}
+
+			L.mapbox.accessToken = '{{ MAPBOX_API_KEY }}';
+			var map = L.mapbox.map('map');
+
+			var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+			  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+			}).addTo(map);
+
+			map.setView([{{ latitude }}, {{ longitude }}], zoom);
+
+			{% if producer %}
+				add_marker({
+					'title': '{{ producer.business_name }}',
+					'latitude': {{ producer.latitude }},
+					'longitude': {{ producer.longitude }},
+				})
+			{% elif producers %}
+				{% for producer in producers %}
+					add_marker({
+						'title': '{{ producer.business_name }}',
+						'latitude': {{ producer.latitude }},
+						'longitude': {{ producer.longitude }},
+					})
+				{% endfor %}
+			{% endif %}
+
+			function add_marker(info) {
+				var marker = L.marker(
+					[info.latitude, info.longitude],
+					{
+						icon: L.mapbox.marker.icon({
+							'marker-color': '#f86767',
+						})
+					}
+				).addTo(map);
+			}
+		</script>
+	</div>
+{% endif %}
+

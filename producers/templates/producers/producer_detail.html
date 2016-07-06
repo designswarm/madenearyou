@@ -76,28 +76,9 @@
 
 		</div> <!-- .col -->
 	</div> <!-- .row -->
-	{% if MAPBOX_API_KEY and producer.point %}
-		<div class="row">
-			<div id="map" class="map map-producer"></div>
-			<script>
-				L.mapbox.accessToken = '{{ MAPBOX_API_KEY }}';
-				var map = L.mapbox.map('map');
 
-				var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-				  attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-				}).addTo(map);
-
-				map.setView([{{ producer.latitude }}, {{ producer.longitude }}], 12);
-				var marker = L.marker(
-					[{{ producer.latitude }}, {{ producer.longitude }}],
-					{
-						icon: L.mapbox.marker.icon({
-							'marker-color': '#f86767',
-						})
-					}
-				).addTo(map);
-			</script>
-		</div>
+	{% if producer.point %}
+		{% include 'producers/includes/map.html' with latitude=producer.latitude longitude=producer.longitude producer=producer %}
 	{% endif %}
 
 {% endblock content %}

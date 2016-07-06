@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
@@ -61,6 +62,7 @@ class Producer(TimeStampedModelMixin, models.Model):
     products = models.ManyToManyField(Product)
 
     objects = models.GeoManager()
+
     # Only producers with is_visible=True:
     visible_objects = managers.VisibleProducersManager()
 
@@ -82,6 +84,9 @@ class Producer(TimeStampedModelMixin, models.Model):
     @property
     def longitude(self):
         return self.point.x if self.point else 0
+
+    def get_absolute_url(self):
+        return reverse('producer_detail', kwargs={'pk': self.pk})
 
 
 @receiver(pre_save, sender=Producer)

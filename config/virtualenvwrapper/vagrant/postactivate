@@ -3,3 +3,5 @@
 
 export DJANGO_SECRET_KEY=my-dev-secret-key
 
+export MAPBOX_API_KEY=pk.eyJ1IjoicGhpbGd5Zm9yZCIsImEiOiJjaXFhcXRpM2wwMDdjaHluc2hyNWx1cWt4In0.vQv6O542D6Sb1VJSgas7lA
+

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import DetailView, FormView, ListView, TemplateView
@@ -31,4 +32,9 @@ class ProducerAddThanksView(TemplateView):
 class ProducerDetailView(DetailView):
     model = Producer
     queryset = Producer.visible_objects
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['include_map'] = True
+        return context
 

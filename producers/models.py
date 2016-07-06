@@ -52,6 +52,7 @@ class Producer(TimeStampedModelMixin, models.Model):
     email = models.EmailField(blank=False, null=False)
     url = models.URLField(blank=True, null=False, verbose_name="URL")
 
+    # Set with the set_location() function, below.
     point = models.PointField(srid=4326, blank=True, null=True)
 
     is_visible = models.BooleanField(default=False,
@@ -73,6 +74,14 @@ class Producer(TimeStampedModelMixin, models.Model):
 
     class Meta:
         ordering = ['business_name']
+
+    @property
+    def latitude(self):
+        return self.point.y if self.point else 0 
+
+    @property
+    def longitude(self):
+        return self.point.x if self.point else 0
 
 
 @receiver(pre_save, sender=Producer)

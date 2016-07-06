@@ -28,7 +28,9 @@ if [[ -f /vagrant/$PROCFILE ]]; then
     # Run with & to release the terminal.
     # Although that may also rely on the Procfile's processes having their
     # output sent to a file, not stdout/stderr.
-    foreman start -f /vagrant/$PROCFILE &
+    #foreman start -f /vagrant/$PROCFILE &
+
+    nohup /vagrant/manage.py runserver 0.0.0.0:5000 > /vagrant/django.log 2>&1&
 else
     echo "No Procfile found; not starting foreman."
 fi

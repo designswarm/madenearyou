@@ -1,6 +1,16 @@
 
 ## Vagrant
 
+**NOTE:** Curently using `runserver` rather than foreman. After booting up Vagrant, need to do:
+
+	$ vagrant ssh
+	vagrant$ cd /vagrant
+	vagrant% nohup /vagrant/manage.py runserver 0.0.0.0:5000 > django.log 2>&1&
+
+Which should log into `django.log` but doesn't really do much...
+
+
+
 If you have Vagrant installed, then doing this should set up a Vagrant box based on [this](https://github.com/philgyford/vagrant-heroku-cedar-14-python):
 
 	$ vagrant up

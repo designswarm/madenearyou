@@ -8,10 +8,8 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
-        <style type="text/css">
-            <!-- fix for https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742 -->
-            [hidden="hidden"][style*="display: block;"] { display: block !important; }
-        </style>
+        {% load static from staticfiles %}
+        <link rel="stylesheet" href="{% static "css/styles.css" %}">
 
         {% if include_map and MAPBOX_API_KEY %}
             <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
@@ -43,4 +41,3 @@
     {% endblock %}
     </body>
 </html>
-

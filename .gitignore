@@ -1,4 +1,5 @@
 .vagrant
 gunicorn.log
+django.log
 staticfiles
 

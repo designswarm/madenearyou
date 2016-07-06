@@ -30,4 +30,5 @@ class ProducerAddThanksView(TemplateView):
 
 class ProducerDetailView(DetailView):
     model = Producer
+    queryset = Producer.visible_objects
 

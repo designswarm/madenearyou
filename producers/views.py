@@ -57,8 +57,9 @@ class MapView(FormView):
         # Includes the map JS:
         context['include_map'] = True
 
-        pc = self.request.GET.get('pc').upper().strip()
+        pc = self.request.GET.get('pc')
         if pc:
+            pc = pc.upper().strip()
             try:
                 validators.validate_uk_postcode(pc)
                 context['postcode'] = pc

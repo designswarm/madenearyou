@@ -3,10 +3,61 @@
 {% block title %}Add producer{% endblock %}
 
 {% block content %}
-	<form action="" method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Add" />
-	</form>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h1>Add producer</h1>
+			
+			<form action="" method="post">
+				{% csrf_token %}
+				<fieldset>
+					{% for field in form %}
+
+						{% if field.name == 'products' %}
+							<div class="p-l-1 m-b-2">
+								<p class="m-b-0">Products</p>
+								{% if field.help_text %}
+									<p>
+										<small class="text-muted">{{ field.help_text }}</small>
+									</p>
+								{% endif %}
+								{% if field.errors %}
+									<span class="text-danger">{{ field.errors|join:'<br />' }}</span>
+								{% endif %}
+
+								{% for checkbox in field %}
+									<div class="checkbox">
+										{{ checkbox }}
+									</div>
+								{% endfor %}
+							</div>
+
+						{% else %}
+
+							<div class="form-group m-b-2 {% if field.errors %} has-danger{% endif %}"{% if field.name == 'honeypot' %} style="display:none;"{% endif %}>
+								<label class="form-control-label" for="id_{{ field.html_name }}">
+									{{ field.label }}
+								</label>
+
+								{{ field }}
+
+								{% if field.errors %}
+									<span class="p-l-1 text-danger">{{ field.errors|join:'<br />' }}</span>
+								{% endif %}
+								
+								{% if field.help_text %}
+									<small class="text-muted">{{ field.help_text }}</small>
+								{% endif %}
+							</div>
+						{% endif %}
+
+					{% endfor %}
+				</fieldset>
+
+				<p>
+					<button type="submit" class="btn btn-primary">Add Producer</button>
+				</p>
+			</form>
+		</div> <!-- .col -->
+	</div> <!-- .row -->
 {% endblock content %}
 

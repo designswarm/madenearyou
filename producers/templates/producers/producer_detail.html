@@ -3,8 +3,12 @@
 {% block title %}{{ producer.business_name }}{% endblock %}
 
 {% block content %}
-	<p>{{ producer.business_name }}</p>
-	<p>{{ producer.contact_name }}</p>
-	<p>{{ producer.postcode }}</p>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h1>{{ producer.business_name }}</h1>
+			<p>{{ producer.contact_name }}</p>
+			<p>{{ producer.postcode }}</p>
+		</div> <!-- .col -->
+	</div> <!-- .row -->
 {% endblock content %}
 

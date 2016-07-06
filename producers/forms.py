@@ -6,7 +6,7 @@ from . import validators
 
 
 attrs = {'class': 'form-control'}
-required_attrs = {'class': 'required form-control'}
+required_attrs = {'class': 'form-control', 'required': 'required',}
 
 
 class ProducerForm(forms.ModelForm):
@@ -17,8 +17,9 @@ class ProducerForm(forms.ModelForm):
 
     class Meta:
         model = Producer
-        fields = ['business_name', 'contact_name', 'postcode', 'phone',
-                    'email', 'url', 'products', ]
+        # The order the fields will appear in the form:
+        fields = ['postcode', 'products', 'business_name', 'contact_name',
+                'phone', 'email', 'url',  ]
 
         # Adding attributes to the form fields.
         widgets = {
@@ -34,7 +35,7 @@ class ProducerForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # For some reason need to do this to use checkboxes for Products:
         # via http://www.joshuakehn.com/2013/6/23/django-m2m-modelform.html
-        self.fields['products'].help_text = ''
+        self.fields['products'].help_text = 'This has to be food you make in the country and do not import'
         self.fields['products'].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields['products'].queryset = Product.objects.all()
 

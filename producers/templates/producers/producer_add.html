@@ -8,6 +8,7 @@
 			<h1>Add producer</h1>
 			
 			<form action="" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
 				{% csrf_token %}
 
 				{% for hidden in form.hidden_fields %}

@@ -7,18 +7,22 @@
 		<div class="col-md-6 col-md-offset-3">
 			<h1>Add producer</h1>
 			
-			<form action="" method="post">
+			<form action="" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
+
+				{% for hidden in form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+
 				<fieldset>
-					{% for field in form %}
+					{% for field in form.visible_fields %}
 
 						{% if field.name == 'products' %}
+							<hr class="m-t-0">
 							<div class="p-l-1 m-b-2">
-								<p class="m-b-0">Products</p>
+								<h2 class="h6">Products</h2>
 								{% if field.help_text %}
-									<p>
-										<small class="text-muted">{{ field.help_text }}</small>
-									</p>
+									<p><small class="text-muted">{{ field.help_text }}</small></p>
 								{% endif %}
 								{% if field.errors %}
 									<span class="text-danger">{{ field.errors|join:'<br />' }}</span>
@@ -38,7 +42,40 @@
 					{% endfor %}
 				</fieldset>
 
-				<p>
+				<hr class="m-t-0">
+
+				<fieldset class="p-l-1 ">
+					<h2 class="h6">Images</h2>
+					<p><small class="text-muted">Optionally choose one or more images of your products.</small></p>
+					
+					{% if num_images_submitted %}
+						<p class="m-b-0 text-danger">Please choose your image{{ num_images_submitted|pluralize }} again.</p>
+						<p class="text-muted"><small>Sorry, images get removed when there are other errors in the form.</small></p>
+					{% endif %}
+
+					{{ image_formset.management_form }}
+
+					{% for imgform in image_formset %}
+						{% for field in imgform %}
+							{# Don't want the 'Delete' checkboxes: #}
+							{% if 'DELETE' not in field.id_for_label %}
+								{% if field.is_hidden %}
+									{{ field }}
+								{% else %}
+									<p>
+										<label id="{{ field.id_for_label">
+											{{ field }}
+										</label>
+									</p>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</fieldset>
+
+				<hr class="m-t-0 m-b-2">
+
+				<p class="p-l-1">
 					<button type="submit" class="btn btn-primary">Add Producer</button>
 				</p>
 			</form>

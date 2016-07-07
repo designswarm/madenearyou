@@ -123,6 +123,9 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 # MADE NEAR YOU  SPECIFIC SETTINGS
 

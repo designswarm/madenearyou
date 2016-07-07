@@ -7,6 +7,8 @@
 		<div class="col-md-6 col-md-offset-3">
 			<h1>{{ producer.business_name }}</h1>
 
+			<hr>
+			
 			<h2 class="h3">Products</h2>
 
 			<ul>
@@ -14,6 +16,8 @@
 					<li>{{ product.name }}</li>
 				{% endfor %}
 			</ul>
+			
+			<hr>
 			
 			<h2 class="h3">Contact details</h2>
 
@@ -61,6 +65,8 @@
 				</p>
 			{% endif %}
 
+			<hr>
+
 			<h2 class="h3">Location</h2>
 
 			{% if producer.postcode %}
@@ -77,9 +83,27 @@
 		</div> <!-- .col -->
 	</div> <!-- .row -->
 
+
 	{% if producer.point %}
 		{% include 'producers/includes/map.html' with latitude=producer.latitude longitude=producer.longitude producer=producer %}
 	{% endif %}
+
+
+	{% if producer.images.all|length > 0 %}
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<hr>
+
+				<h2 class="h3">Images</h2>
+
+				{% for i in producer.images.all %}
+					<p><img class="img-fluid" src="{{ i.image_medium.url }}" width="{{ i.image_medium.width }}" height="{{ i.image_height.height }}"></p>
+				{% endfor %}
+			</div> <!-- .col -->
+		</div> <!-- .row -->
+	{% endif %}
+
 
 {% endblock content %}
 

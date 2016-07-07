@@ -1,8 +1,9 @@
 from django import forms
-from .models import Producer, Product
 from django.contrib.gis.geos import Point
+from django.forms import inlineformset_factory
 
 from . import validators
+from .models import Producer, ProducerImage, Product
 
 
 attrs = {'class': 'form-control'}
@@ -12,6 +13,7 @@ postcode_attrs['class'] = postcode_attrs['class'] + ' form-control-postcode'
 
 
 class HoneypotFormMixin(forms.Form):
+    "Provides a hidden field designed to prevent automated posting."
     honeypot = forms.CharField(required=False,
                             label='If you enter anything in this field '\
                                 'your data will be treated as spam')
@@ -42,8 +44,8 @@ class ProducerForm(HoneypotFormMixin, forms.ModelForm):
     class Meta:
         model = Producer
         # The order the fields will appear in the form:
-        fields = ['postcode', 'products', 'business_name', 'contact_name',
-                'phone', 'email', 'url', ]
+        fields = ['business_name', 'postcode', 'contact_name',
+                    'phone', 'email', 'url', 'products', ]
 
         # Adding attributes to the form fields.
         widgets = {
@@ -75,4 +77,8 @@ class ProducerForm(HoneypotFormMixin, forms.ModelForm):
             validators.validate_uk_phone_number(value)
         return value.strip()
 
+
+# For the part of the Producer form that lists 3 upload fields for images.
+ProducerImageFormset = inlineformset_factory(Producer, ProducerImage,
+                                                fields=('image',), max_num=3 )
 

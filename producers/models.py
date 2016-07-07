@@ -7,6 +7,9 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
 
+from imagekit.models import ImageSpecField
+from imagekit.processors import Adjust, ResizeToFit
+
 from . import managers
 from .postcoder import Postcoder, PostcoderException
 from .validators import validate_uk_phone_number, validate_uk_postcode
@@ -42,6 +45,38 @@ class Product(TimeStampedModelMixin, models.Model):
         ordering = ['order']
 
 
+class ProducerImage(TimeStampedModelMixin, models.Model):
+    "The images that can be attached to Producers. Uploaded by users."
+
+    producer = models.ForeignKey('Producer', related_name='images')
+
+    image = models.ImageField(upload_to='producers')
+
+    image_thumbnail = ImageSpecField(source='image',
+                        processors=[
+                            ResizeToFit(100, 100, upscale=True),
+                            Adjust(sharpness=2.0)
+                        ],
+                        format='JPEG',
+                        options={'quality': 60})
+
+    image_medium = ImageSpecField(source='image',
+                        processors=[
+                            ResizeToFit(500, 400, upscale=False),
+                            Adjust(sharpness=2.0)
+                        ],
+                        format='JPEG',
+                        options={'quality': 80})
+
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ['-time_created']
+
+    def get_absolute_url(self):
+        return self.image.url
+
+
 class Producer(TimeStampedModelMixin, models.Model):
 
     business_name = models.CharField(blank=False, null=False, max_length=255)
@@ -75,11 +110,11 @@ class Producer(TimeStampedModelMixin, models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['business_name']
+        ordering = ['-time_created']
 
     @property
     def latitude(self):
-        return self.point.y if self.point else 0 
+        return self.point.y if self.point else 0
 
     @property
     def longitude(self):

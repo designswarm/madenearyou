@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.gis import geos, measure
 from django.contrib.gis.db.models.functions import Distance
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.utils.decorators import method_decorator
@@ -9,7 +10,7 @@ from django.utils.http import urlencode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from .forms import ProducerForm, FindProducerForm
+from .forms import ProducerForm, FindProducerForm, ProducerImageFormset
 from .models import Producer
 
 from . import validators
@@ -27,9 +28,37 @@ class ProducerAddView(FormView):
     form_class = ProducerForm
     success_url = reverse_lazy('producer_add_thanks')
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'image_formset' not in context:
+            context['image_formset'] = ProducerImageFormset()
+
+        # If there was an error, the image upload fields don't have their
+        # previous values attached. So the best we can do is to notice when
+        # images were submitted, and mention this in the template.
+        context['num_images_submitted'] = len(self.request.FILES)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        image_formset = ProducerImageFormset(request.POST, request.FILES)
+
+        if form.is_valid() and image_formset.is_valid():
+            return self.form_valid(form, image_formset)
+        else:
+            return self.form_invalid(form, image_formset)
+
+    def form_valid(self, form, image_formset):
+        "Both form and formset are valid, so save them."
+        producer = form.save()
+        image_formset.instance = producer
+        img = image_formset.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, image_formset):
+        return self.render_to_response(self.get_context_data(
+                                    form=form, image_formset=image_formset))
 
 
 class ProducerAddThanksView(TemplateView):

@@ -2,6 +2,7 @@
 .map {
     border: 1px solid #000;
     width: 100%;
+    margin-bottom: 2rem;
 }
 .map-producer {
     height: 400px;

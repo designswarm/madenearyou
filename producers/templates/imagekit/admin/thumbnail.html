@@ -1,0 +1,6 @@
+{# Originally from https://github.com/matthewwithanm/django-imagekit/blob/develop/imagekit/templates/imagekit/admin/thumbnail.html #}
+{% if thumbnail %}
+	<a href="{{ model.get_absolute_url }}">
+		<img src="{{ thumbnail.url }}" width="{{ thumbnail.width }}" height="{{ thumbnail.height }}">
+	</a>
+{% endif %}

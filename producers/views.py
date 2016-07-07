@@ -92,7 +92,7 @@ class MapView(FormView):
         try:
             latlon = Postcoder().geolocate(postcode)
         except PostcoderException as e:
-            context['geolocation_error'] = "We couldn't find the location of the postcode '%s'" % postcode
+            context['geolocation_error'] = "We couldn't find the location of the postcode '%s'." % postcode
             return context
 
         # Make a point where this postcode is:

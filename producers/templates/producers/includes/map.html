@@ -35,6 +35,7 @@
 					'products': [{% for p in producer.products.all %}"{{ p.name|escapejs }}",{% endfor %}],
 					'latitude': {{ producer.latitude }},
 					'longitude': {{ producer.longitude }},
+					'hasPopup': false
 				})
 			{% elif producers %}
 				{% for producer in producers %}
@@ -44,27 +45,45 @@
 						'products': [{% for p in producer.products.all %}"{{ p.name|escapejs }}",{% endfor %}],
 						'latitude': {{ producer.latitude }},
 						'longitude': {{ producer.longitude }},
+						'hasPopup': true
 					})
 				{% endfor %}
 			{% endif %}
 
+			/**
+			 * Accepts an object with:
+			 *	name
+			 *	url
+			 *	latitude
+			 *	longitude
+			 *	hasPopup (boolean)
+			 * And optionally:
+			 *	products (an array of strings)
+			 */
 			function add_marker(producer) {
+				var isClickable = false;
+				if (producer.hasPopup) {
+					isClickable = true;
+				};
 				var marker = L.marker(
 					[producer.latitude, producer.longitude],
 					{
 						icon: L.mapbox.marker.icon({
 							'marker-color': '#f86767',
-						})
+						}),
+						clickable: producer.hasPopup
 					}
 				);
 
-				content = '<a href="'+producer.url+'"><strong>' + producer.name + '</strong></a>';
-				if (producer.products.length > 0) {
-					for (var i=0; i < producer.products.length; i++) {
-						content += '<br>' + producer.products[i];
+				if (producer.hasPopup) {
+					content = '<a href="'+producer.url+'"><strong>' + producer.name + '</strong></a>';
+					if ('products' in producer && producer.products.length > 0) {
+						for (var i=0; i < producer.products.length; i++) {
+							content += '<br>' + producer.products[i];
+						};
 					};
+					marker.bindPopup(content).openPopup();
 				};
-				marker.bindPopup(content).openPopup();
 
 				marker.addTo(map);
 			}

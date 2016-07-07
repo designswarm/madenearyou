@@ -1,5 +1,7 @@
 # Made Near You
 
+Instructions for setting up on Vagrant (for local development) and Heroku.
+
 ## Vagrant
 
 **NOTE:** Curently using `runserver` rather than foreman. After booting up Vagrant, need to do:
@@ -73,7 +75,7 @@ Add the "Heroku Postgres" Add-on.
 
 In the top level of your checked-out code, add Heroku as a git remote (replacing `your-app-name` with your app's name):
 
-	$ heroku git:remote -a your-app-name 
+	$ heroku git:remote -a your-app-name
 
 Set the buildpacks for Python and the stuff required for GeoDjango:
 
@@ -116,11 +118,52 @@ With all that you should be able to set the environment variables required:
 	$ heroku config:set AWS_STORAGE_BUCKET_NAME=your-bucket-name
 
 
+Go to https://console.aws.amazon.com and create an account or sign in.
 
+Go to the Security Credentials section of your account and choose Users.
 
+Create a new user. Note the "User ARN" value.
 
-You'll need to go to the S3 section of https://console.aws.amazon.com
+Under the Services menu, go to S3.
 
 Create a new bucket.
 
+In the bucket's Properties, open the Permissions panel, then "Edit bucket policy". Paste the following into the window. Replace `BUCKETNAME` with the name of your bucket. And replace `arn:aws:iam::1234567890:user/USERNAME` with the User ARN value noted earlier. Save the policy.
+
+This gives anonymous users the ability to "get" objects (view images) and the named user the ability to perform any actions.
+
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Action": [
+				"s3:GetObject"
+			],
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": [
+					"*"
+				]
+			},
+			"Resource": [
+				"arn:aws:s3:::BUCKETNAME/*"
+			]
+		},
+		{
+			"Action": [
+				"s3:*"
+			],
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": [
+					"arn:aws:iam::1234567890:user/USERNAME"
+				]
+			},
+			"Resource": [
+				"arn:aws:s3:::BUCKETNAME",
+				"arn:aws:s3:::BUCKETNAME/*"
+			]
+		}
+	]
+}
 

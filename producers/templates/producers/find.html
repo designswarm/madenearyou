@@ -39,7 +39,7 @@
 
 	{% if postcode and not geolocation_error and producers|length > 0 %}
 
-		<h2>{{ producers|length }} producer{{ producers|length|pluralize }} within {{ max_km }}km of {{ postcode }}</p>
+		<h2>{{ producers|length }} producer{{ producers|length|pluralize }} within {{ max_km }}km of {{ postcode }}</h2>
 
 		{% include 'producers/includes/map.html' with latitude=latitude longitude=longitude producers=producers %}
 

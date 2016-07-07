@@ -27,31 +27,46 @@
 
 			map.setView([{{ latitude }}, {{ longitude }}], zoom);
 
+			{# This could be rationalised a bit more... #}
 			{% if producer %}
 				add_marker({
-					'title': '{{ producer.business_name }}',
+					'name': "{{ producer.business_name|escapejs }}",
+					'url': "{{ producer.get_absolute_url|escapejs }}",
+					'products': [{% for p in producer.products.all %}"{{ p.name|escapejs }}",{% endfor %}],
 					'latitude': {{ producer.latitude }},
 					'longitude': {{ producer.longitude }},
 				})
 			{% elif producers %}
 				{% for producer in producers %}
 					add_marker({
-						'title': '{{ producer.business_name }}',
+						'name': "{{ producer.business_name|escapejs }}",
+						'url': "{{ producer.get_absolute_url|escapejs }}",
+						'products': [{% for p in producer.products.all %}"{{ p.name|escapejs }}",{% endfor %}],
 						'latitude': {{ producer.latitude }},
 						'longitude': {{ producer.longitude }},
 					})
 				{% endfor %}
 			{% endif %}
 
-			function add_marker(info) {
+			function add_marker(producer) {
 				var marker = L.marker(
-					[info.latitude, info.longitude],
+					[producer.latitude, producer.longitude],
 					{
 						icon: L.mapbox.marker.icon({
 							'marker-color': '#f86767',
 						})
 					}
-				).addTo(map);
+				);
+
+				content = '<a href="'+producer.url+'"><strong>' + producer.name + '</strong></a>';
+				if (producer.products.length > 0) {
+					for (var i=0; i < producer.products.length; i++) {
+						content += '<br>' + producer.products[i];
+					};
+				};
+				marker.bindPopup(content).openPopup();
+
+				marker.addTo(map);
 			}
 		</script>
 	</div>

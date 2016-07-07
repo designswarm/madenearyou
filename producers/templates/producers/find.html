@@ -19,7 +19,7 @@
 				{% if geolocation_error %}
 					<p>{{ geolocation_error }}</p>
 				{% elif producers|length == 0 %}
-					<p>No producers found within {{ max_km }} km of {{ postcode }}.</p>
+					<p>No producers found within {{ max_km }}km of {{ postcode }}.</p>
 				{% endif %}
 			{% endif %}
 		</div> <!-- .col -->
@@ -27,7 +27,7 @@
 
 	{% if postcode and not geolocation_error and producers|length > 0 %}
 
-		<h2>{{ producers|length }} producer{{ producers|length|pluralize }} within {{ max_km }} km of {{ postcode }}</p>
+		<h2>{{ producers|length }} producer{{ producers|length|pluralize }} within {{ max_km }}km of {{ postcode }}</p>
 
 		{% include 'producers/includes/map.html' with latitude=latitude longitude=longitude producers=producers %}
 

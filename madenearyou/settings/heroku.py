@@ -11,7 +11,7 @@ ALLOWED_HOSTS = [".herokuapp.com",]
 
 INSTALLED_APPS += ['storages', ]
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.setdefault('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.setdefault('AWS_SECRET_ACCESS_KEY', '')

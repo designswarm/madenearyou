@@ -132,38 +132,38 @@ In the bucket's Properties, open the Permissions panel, then "Edit bucket policy
 
 This gives anonymous users the ability to "get" objects (view images) and the named user the ability to perform any actions.
 
-{
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Action": [
-				"s3:GetObject"
-			],
-			"Effect": "Allow",
-			"Principal": {
-				"AWS": [
-					"*"
+	{
+		"Version": "2012-10-17",
+		"Statement": [
+			{
+				"Action": [
+					"s3:GetObject"
+				],
+				"Effect": "Allow",
+				"Principal": {
+					"AWS": [
+						"*"
+					]
+				},
+				"Resource": [
+					"arn:aws:s3:::BUCKETNAME/*"
 				]
 			},
-			"Resource": [
-				"arn:aws:s3:::BUCKETNAME/*"
-			]
-		},
-		{
-			"Action": [
-				"s3:*"
-			],
-			"Effect": "Allow",
-			"Principal": {
-				"AWS": [
-					"arn:aws:iam::1234567890:user/USERNAME"
+			{
+				"Action": [
+					"s3:*"
+				],
+				"Effect": "Allow",
+				"Principal": {
+					"AWS": [
+						"arn:aws:iam::1234567890:user/USERNAME"
+					]
+				},
+				"Resource": [
+					"arn:aws:s3:::BUCKETNAME",
+					"arn:aws:s3:::BUCKETNAME/*"
 				]
-			},
-			"Resource": [
-				"arn:aws:s3:::BUCKETNAME",
-				"arn:aws:s3:::BUCKETNAME/*"
-			]
-		}
-	]
-}
+			}
+		]
+	}
 

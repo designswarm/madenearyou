@@ -44,6 +44,14 @@ class MapView(FormView):
     # We'll look for Producers within this many kilometres:
     max_km = 40
 
+    def get_initial(self):
+        "If we have pc=blah in the URL, use that as the default in the form."
+        initial = super().get_initial()
+        pc = self.request.GET.get('pc', None)
+        if pc:
+            initial['postcode'] = pc
+        return initial
+
     def get_success_url(self):
         pc = self.request.POST.get('postcode', None)
         if pc:

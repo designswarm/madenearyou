@@ -9,10 +9,22 @@
 			
 			<form action="" method="post" class="form-inline m-b-3">
 				{% csrf_token %}
-				{% for field in form %}
-					{% include 'producers/includes/form_field.html' with inline=True %}
-				{% endfor %}
+				<div class="form-group {% if form.postcode.errors %} has-danger{% endif %}">
+					<label class="form-control-label" for="id_postcode">
+						{{ form.postcode.label }}
+					</label>
+					{{ form.postcode }}
+				</div>
 				<button type="submit" class="btn btn-primary">Search</button>
+
+				{% if form.postcode.errors %}
+					<span class="p-l-1 text-danger">{{ form.postcode.errors|join:'<br />' }}</span>
+				{% endif %}
+					
+				<div style="display:none;">
+					{{ form.honeypot.label }}
+					{{ form.honeypot }}
+				</div>
 			</form>
 
 			{% if postcode %}

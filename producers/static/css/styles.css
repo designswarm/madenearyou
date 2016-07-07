@@ -10,6 +10,10 @@
     height: 600px;
 }
 
+.form-control-postcode,
+.form-inline .form-control-postcode {
+    width: 7rem;
+}
 /* fix for https://github.com/django-debug-toolbar/django-debug-toolbar/issues/742 */
 [hidden="hidden"][style*="display: block;"] {
     display: block !important;

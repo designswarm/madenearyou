@@ -7,10 +7,12 @@ from . import validators
 
 attrs = {'class': 'form-control'}
 required_attrs = {'class': 'form-control', 'required': 'required',}
+postcode_attrs = {k:v for k,v in required_attrs.items()}
+postcode_attrs['class'] = postcode_attrs['class'] + ' form-control-postcode'
 
 class FindProducerForm(forms.Form):
     postcode = forms.CharField(required=True, max_length=8,
-                                widget=forms.TextInput(attrs=required_attrs))
+                                widget=forms.TextInput(attrs=postcode_attrs))
     honeypot = forms.CharField(required=False,
                             label='If you enter anything in this field '\
                                 'your data will be treated as spam')
@@ -46,7 +48,7 @@ class ProducerForm(forms.ModelForm):
         widgets = {
             'business_name':    forms.TextInput(attrs=required_attrs),
             'contact_name':     forms.TextInput(attrs=attrs),
-            'postcode':         forms.TextInput(attrs=required_attrs),
+            'postcode':         forms.TextInput(attrs=postcode_attrs),
             'phone':            forms.TextInput(attrs=required_attrs),
             'email':            forms.EmailInput(attrs=required_attrs),
             'url':              forms.URLInput(attrs=required_attrs),

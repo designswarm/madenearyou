@@ -17,6 +17,3 @@ AWS_ACCESS_KEY_ID = os.environ.setdefault('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.setdefault('AWS_SECRET_ACCESS_KEY', '')
 AWS_STORAGE_BUCKET_NAME = os.environ.setdefault('AWS_STORAGE_BUCKET_NAME', '')
 
-from S3 import CallingFormat
-AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
-

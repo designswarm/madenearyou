@@ -1,3 +1,4 @@
+# Made Near You
 
 ## Vagrant
 
@@ -63,6 +64,8 @@ So I had to:
 
 
 ## Heroku
+
+**NOTE:** Currently using [an updated fork of django-storages](https://github.com/syapse/django-storages/tree/boto3-new) because the default version [doesn't currently support boto3](https://github.com/jschneier/django-storages/pull/111) (Python 3 version of boto) as a backend. When it does, we can switch to the default version. Will probably involve changing `runtime.txt` to a different python version, pushing to Heroku, changing it back, pushing again (to delete all python modules and reinstall).
 
 Create your app on Heroku.
 

@@ -97,3 +97,25 @@ If setting up the database from scratch, run initial migrations and set the Djan
 	$ heroku run python manage.py migrate
 	$ heroku run python manage.py createsuperuser
 
+
+### Media files
+
+User-uploaded images will be stored in an Amazon S3 bucket. So, create an account on https://aws.amazon.com if you don't already have one.
+
+I more-or-less followed [these instructions](http://pritishc.com/blog/2015/09/06/uploading-with-django-and-amazon-s3/) for making a new bucket, creating an IAM user with Access Key ID and Secret Access Key, and creating a policy to the bucket.
+
+With all that you should be able to set the environment variables required:
+
+	$ heroku config:set AWS_ACCESS_KEY_ID=YOUR-ACCESS-KEY
+	$ heroku config:set AWS_SECRET_ACCESS_KEY=YOUR-SECRET
+	$ heroku config:set AWS_STORAGE_BUCKET_NAME=your-bucket-name
+
+
+
+
+
+You'll need to go to the S3 section of https://console.aws.amazon.com
+
+Create a new bucket.
+
+

@@ -42,7 +42,7 @@ class MapView(FormView):
     form_class = FindProducerForm
 
     # We'll look for Producers within this many kilometres:
-    max_km = 30
+    max_km = 40
 
     def get_success_url(self):
         pc = self.request.POST.get('postcode', None)
@@ -56,6 +56,7 @@ class MapView(FormView):
         context = super().get_context_data(**kwargs)
         # Includes the map JS:
         context['include_map'] = True
+        context['max_km'] = self.max_km
 
         pc = self.request.GET.get('pc')
         if pc:

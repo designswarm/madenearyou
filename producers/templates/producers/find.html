@@ -23,7 +23,7 @@
 			<p>{{ geolocation_error }}</p>
 
 		{% else %}
-			<h2>Producers near {{ postcode }}</p>
+			<h2>Producers within {{ max_km }} km of {{ postcode }}</p>
 
 			{% include 'producers/includes/map.html' with latitude=latitude longitude=longitude producers=producers %}
 		{% endif %}

@@ -97,6 +97,8 @@ If setting up the database from scratch, run initial migrations and set the Djan
 	$ heroku run python manage.py migrate
 	$ heroku run python manage.py createsuperuser
 
+**AND** don't forget to run that `migrate` command whenever pushing code with new migrations to Heroku!
+
 
 ### Media files
 

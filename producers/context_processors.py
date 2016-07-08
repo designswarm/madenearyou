@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
 
 
 # Things that we want to be available in the context of every page.
@@ -18,4 +19,7 @@ def url_name(request):
         url_name = request.resolver_match.url_name
     return {'url_name': url_name}
 
+def site_name(request):
+    current_site = get_current_site(request)
+    return {'site_name': current_site.name,}
 

@@ -1,7 +1,7 @@
 
 <div class="form-group m-b-2 {% if field.errors %} has-danger{% endif %}"{% if field.name == 'honeypot' %} style="display:none;"{% endif %}>
 	<label class="form-control-label" for="id_{{ field.html_name }}">
-		{{ field.label }}
+		{{ field.label }}{% if field.field.required %} <small class="text-muted">(Required)</small>{% endif %}
 	</label>
 
 	{{ field }}

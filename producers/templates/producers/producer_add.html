@@ -21,7 +21,7 @@
 						{% if field.name == 'products' %}
 							<hr class="m-t-0">
 							<div class="p-l-1 m-b-2">
-								<h2 class="h6">Products</h2>
+								<h2 class="h6">Products{% if field.field.required %} <small class="text-muted">(Required)</small>{% endif %}</h2>
 								{% if field.help_text %}
 									<p><small class="text-muted">{{ field.help_text }}</small></p>
 								{% endif %}

@@ -19,7 +19,7 @@ def url_name(request):
         url_name = request.resolver_match.url_name
     return {'url_name': url_name}
 
-#def site_name(request):
-    #current_site = get_current_site(request)
-    #return {'site_name': current_site.name,}
+def site_name(request):
+    current_site = get_current_site(request)
+    return {'site_name': current_site.name,}
 

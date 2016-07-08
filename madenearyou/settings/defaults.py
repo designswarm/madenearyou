@@ -69,7 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'producers.context_processors.api_keys',
                 'producers.context_processors.url_name',
-                #'producers.context_processors.site_name',
+                'producers.context_processors.site_name',
             ],
         },
     },

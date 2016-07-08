@@ -109,28 +109,21 @@ If setting up the database from scratch, run initial migrations and set the Djan
 
 User-uploaded images will be stored in an Amazon S3 bucket. So, create an account on https://aws.amazon.com if you don't already have one.
 
-I more-or-less followed [these instructions](http://pritishc.com/blog/2015/09/06/uploading-with-django-and-amazon-s3/) for making a new bucket, creating an IAM user with Access Key ID and Secret Access Key, and creating a policy to the bucket.
-
-With all that you should be able to set the environment variables required:
-
-	$ heroku config:set AWS_ACCESS_KEY_ID=YOUR-ACCESS-KEY
-	$ heroku config:set AWS_SECRET_ACCESS_KEY=YOUR-SECRET
-	$ heroku config:set AWS_STORAGE_BUCKET_NAME=your-bucket-name
-
+I more-or-less followed [these instructions](http://pritishc.com/blog/2015/09/06/uploading-with-django-and-amazon-s3/) for making a new bucket, creating an IAM user with Access Key ID and Secret Access Key, and creating a policy to the bucket. This is my summary:
 
 Go to https://console.aws.amazon.com and create an account or sign in.
 
 Go to the Security Credentials section of your account and choose Users.
 
-Create a new user. Note the "User ARN" value.
+Create a new user. Click the 'Show Security Credentials' and note the user's Access Key ID and Secret Access Key.
+
+When you get to the list of users, click your new user. Note the "User ARN" value.
 
 Under the Services menu, go to S3.
 
 Create a new bucket.
 
 In the bucket's Properties, open the Permissions panel, then "Edit bucket policy". Paste the following into the window. Replace `BUCKETNAME` with the name of your bucket. And replace `arn:aws:iam::1234567890:user/USERNAME` with the User ARN value noted earlier. Save the policy.
-
-This gives anonymous users the ability to "get" objects (view images) and the named user the ability to perform any actions.
 
 	{
 		"Version": "2012-10-17",
@@ -166,4 +159,12 @@ This gives anonymous users the ability to "get" objects (view images) and the na
 			}
 		]
 	}
+
+(This gives anonymous users the ability to "get" objects (view images) and the named user the ability to perform any actions.)
+
+Set Heroku config values as here, replacing the values with those for your bucket and user:
+
+	$ heroku config:set AWS_ACCESS_KEY_ID=YOUR-ACCESS-KEY-ID
+	$ heroku config:set AWS_SECRET_ACCESS_KEY=YOUR-SECRET-ACCESS-KEY
+	$ heroku config:set AWS_STORAGE_BUCKET_NAME=your-bucket-name
 

@@ -51,6 +51,13 @@ Wake/start it again with:
 
 Server logs will be in a `gunicorn.log` in this repository's directory.
 
+For the Recaptcha on the Add Producer form to work, [sign up](https://www.google.com/recaptcha/intro/index.html), add a key, and add these to `/home/vagrant/.virtualenvs/made-near-you/bin/postactivate`:
+
+	export RECAPTCHA_PUBLIC_KEY='YOUR-KEY'
+	export RECAPTCHA_PRIVATE_KEY='YOUR-PRIVATE-KEY'
+	
+Probably need to restart the server to pick them up.
+
 ### Notes
 
 The install script should do this, but I had an occasion when I was getting this error while running migrations:
@@ -103,6 +110,11 @@ If setting up the database from scratch, run initial migrations and set the Djan
 	$ heroku run python manage.py createsuperuser
 
 **AND** don't forget to run that `migrate` command whenever pushing code with new migrations to Heroku!
+
+For the Recaptcha on the Add Producer form to work, [sign up](https://www.google.com/recaptcha/intro/index.html), add a key, and add then:
+
+	$ heroku config:set RECAPTCHA_PUBLIC_KEY=YOUR-KEY
+	$ heroku config:set RECAPTCHA_PRIVATE_KEY=YOUR-PRIVATE-KEY
 
 
 ### Media files

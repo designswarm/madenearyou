@@ -1,6 +1,9 @@
 from django import forms
+from django.conf import settings
 from django.contrib.gis.geos import Point
 from django.forms import inlineformset_factory
+
+from captcha.fields import ReCaptchaField
 
 from . import validators
 from .models import Producer, ProducerImage, Product
@@ -40,6 +43,9 @@ class FindProducerForm(HoneypotFormMixin, forms.Form):
 
 class ProducerForm(HoneypotFormMixin, forms.ModelForm):
     products = forms.ModelMultipleChoiceField(queryset=Product.objects.all())
+
+    if settings.USE_RECAPTCHA:
+        captcha = ReCaptchaField(label="Anti-spam test")
 
     class Meta:
         model = Producer

@@ -16,6 +16,8 @@
 					{{ hidden }}
 				{% endfor %}
 
+				{{ form.non_field_errors }}
+
 				<fieldset>
 					{% for field in form.visible_fields %}
 
@@ -36,6 +38,9 @@
 									</div>
 								{% endfor %}
 							</div>
+
+						{% elif field.name == 'captcha' %}
+							{# We add this manually at the end #}
 
 						{% else %}
 							{% include 'producers/includes/form_field.html' %}
@@ -76,6 +81,15 @@
 				</fieldset>
 
 				<hr class="m-t-0 m-b-2">
+
+				{# Can't seem to get the field to render properly if I just pass that one to the include, so need to cycle through them. Grr. #}
+				{% for field in form.visible_fields %}
+					{% if field.name == 'captcha' %}
+						{% include 'producers/includes/form_field.html' %}
+						<hr class="m-t-0 m-b-2">
+					{% endif %}
+				{% endfor %}
+				
 
 				<p class="p-l-1">
 					<button type="submit" class="btn btn-primary">Add Producer</button>

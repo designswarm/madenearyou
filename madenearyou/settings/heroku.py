@@ -6,7 +6,6 @@ DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 ALLOWED_HOSTS = [".herokuapp.com",]
 
-
 # Set up for django-storages to store Media files on S3.
 
 INSTALLED_APPS += ['storages', ]

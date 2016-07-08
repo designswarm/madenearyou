@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.gis',
+    'captcha',
     'producers',
 ]
 
@@ -134,4 +135,13 @@ MEDIA_URL = '/media/'
 # MADE NEAR YOU  SPECIFIC SETTINGS
 
 MAPBOX_API_KEY = os.environ.setdefault('MAPBOX_API_KEY', '')
+
+
+# https://github.com/praekelt/django-recaptcha
+
+# Set to False to disable the Catpcha:
+USE_RECAPTCHA = True
+NOCAPTCHA = True
+RECAPTCHA_PUBLIC_KEY = os.environ.setdefault('RECAPTCHA_PUBLIC_KEY', '')
+RECAPTCHA_PRIVATE_KEY = os.environ.setdefault('RECAPTCHA_PRIVATE_KEY', '')
 

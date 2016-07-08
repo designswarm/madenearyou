@@ -11,6 +11,11 @@
     height: 600px;
 }
 
+.nav-link.active {
+    color: #55595c;
+    cursor: default;
+}
+
 .form-control-postcode,
 .form-inline .form-control-postcode {
     width: 7rem;

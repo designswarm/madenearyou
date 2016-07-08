@@ -30,6 +30,6 @@ if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-current_site = Site.objects.get_current()
-admin.site.site_header = '%s Admin' % current_site.name
+#current_site = Site.objects.get_current()
+#admin.site.site_header = '%s Admin' % current_site.name
 

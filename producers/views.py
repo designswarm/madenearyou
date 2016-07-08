@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.flatpages.models import FlatPage
 from django.contrib.gis import geos, measure
 from django.contrib.gis.db.models.functions import Distance
 from django.core.urlresolvers import reverse_lazy
@@ -7,6 +8,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
+from django.utils.safestring import mark_safe
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
@@ -17,8 +19,35 @@ from . import validators
 from .postcoder import Postcoder, PostcoderException
 
 
+class FlatPageMixin(object):
+    """
+    Retrieves the FlatPage object for the specified url, and includes it in the
+    context.
 
-class HomeView(TemplateView):
+    If no url is specified, request.path is used.
+
+    From https://blog.schwuk.com/2013/02/26/flatpages-content-in-other-views/
+    """
+    url = None
+
+    def get_context_data(self, **kwargs):
+        if not self.url:
+            self.url = self.request.path
+
+        context = super().get_context_data(**kwargs)
+        try:
+            flatpage = FlatPage.objects.get(url=self.url)
+            flatpage.title = mark_safe(flatpage.title)
+            flatpage.content = mark_safe(flatpage.content)
+            context["flatpage"] = flatpage
+        except FlatPage.DoesNotExist:
+            context["flatpage"] = None
+
+        return context
+
+
+class HomeView(FlatPageMixin, TemplateView):
+    "Uses content from a Flatpage."
     template_name = 'producers/home.html'
 
 

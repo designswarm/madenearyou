@@ -11,7 +11,7 @@ If you have Vagrant installed, then doing this should set up a Vagrant box based
 If all goes well, start the dev server manually by:
 
 	$ vagrant ssh
-	$ /vagrant/manage.py runserver 0.0.0.0:5000
+	vagrant$ /vagrant/manage.py runserver 0.0.0.0:5000
 	
 Access the local dev site at [http://localhost:5000/](http://localhost:5000/). 
 

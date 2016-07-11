@@ -4,22 +4,27 @@ Instructions for setting up on Vagrant (for local development) and Heroku.
 
 ## Vagrant
 
-**NOTE:** Curently using `runserver` rather than foreman. After booting up Vagrant, need to do:
-
-	$ vagrant ssh
-	vagrant$ cd /vagrant
-	vagrant% nohup /vagrant/manage.py runserver 0.0.0.0:5000 > django.log 2>&1&
-
-Which should log into `django.log` but doesn't really do much...
-
-
-
 If you have Vagrant installed, then doing this should set up a Vagrant box based on [this](https://github.com/philgyford/vagrant-heroku-cedar-14-python):
 
 	$ vagrant up
 
-If all goes well, access the local dev site at [http://localhost:5000/](http://localhost:5000/). This code repository will be linked to `/vagrant` on the Vagrant machine.
+If all goes well, start the dev server manually by:
 
+	$ vagrant ssh
+	$ /vagrant/manage.py runserver 0.0.0.0:5000
+	
+Access the local dev site at [http://localhost:5000/](http://localhost:5000/). 
+
+This code repository will be linked to `/vagrant` on the Vagrant machine.
+
+For the Recaptcha on the Add Producer form to work, [sign up](https://www.google.com/recaptcha/intro/index.html), add a key, and add these to `/home/vagrant/.virtualenvs/made-near-you/bin/postactivate`:
+
+	export RECAPTCHA_PUBLIC_KEY='YOUR-KEY'
+	export RECAPTCHA_PRIVATE_KEY='YOUR-PRIVATE-KEY'
+	
+Probably need to restart the server to pick them up.
+
+### Database
 If setting up the database from scratch, run initial migrations and set the Django admin superuser:
 
 	$ vagrant ssh
@@ -37,6 +42,8 @@ Or connect as the app's database user:
 	$ vagrant ssh
 	vagrant$ PGUSER=madenearyou PGPASSWORD=madenearyou psql -h localhost madenearyou
 
+### Controlling the VM
+
 Sleep the Vagrant box with:
 
 	$ vagrant suspend
@@ -47,18 +54,13 @@ Or, shut down the box using:
 
 Wake/start it again with:
 
-	$ vagrant up --provision
+	$ vagrant up
 
-Server logs will be in a `gunicorn.log` in this repository's directory.
+Re-run the scripts (if you change something), with:
 
-For the Recaptcha on the Add Producer form to work, [sign up](https://www.google.com/recaptcha/intro/index.html), add a key, and add these to `/home/vagrant/.virtualenvs/made-near-you/bin/postactivate`:
+	$ vagrant provision
 
-	export RECAPTCHA_PUBLIC_KEY='YOUR-KEY'
-	export RECAPTCHA_PRIVATE_KEY='YOUR-PRIVATE-KEY'
-	
-Probably need to restart the server to pick them up.
-
-### Notes
+### Other notes
 
 The install script should do this, but I had an occasion when I was getting this error while running migrations:
 

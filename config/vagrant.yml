@@ -3,7 +3,7 @@ django:
 virtualenv:
   envname: made-near-you
 foreman:
-  procfile: Procfile_vagrant
+  procfile: 'false'
 db:
   name: madenearyou
   user: madenearyou

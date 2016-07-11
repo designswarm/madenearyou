@@ -1,2 +1,0 @@
-web: gunicorn --reload --log-level debug madenearyou.wsgi > /vagrant/gunicorn.log 2>&1
-

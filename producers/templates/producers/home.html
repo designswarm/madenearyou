@@ -5,11 +5,21 @@
 {% block page_title_container %}{% endblock %}
 
 {% block content %}
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-			{{ flatpage.content }}
+            {{ flatpage.content }}
 
-		</div> <!-- .col -->
-	</div> <!-- .row -->
+            {% if producer_list %}
+                <h3 class="m-y-2">Recently added producers</h3>
+                <dl>
+                    {% for producer in producer_list %}
+                        <dt><a href="{{ producer.get_absolute_url }}">{{ producer }}, {{ producer.postcode }}</a></dt>
+                        <dd>{{ producer.products.all|join:", " }}.</dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
+
+        </div> <!-- .col -->
+    </div> <!-- .row -->
 {% endblock content %}

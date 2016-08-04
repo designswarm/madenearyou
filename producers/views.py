@@ -46,9 +46,13 @@ class FlatPageMixin(object):
         return context
 
 
-class HomeView(FlatPageMixin, TemplateView):
+class HomeView(FlatPageMixin, ListView):
     "Uses content from a Flatpage."
+
     template_name = 'producers/home.html'
+    model = Producer
+    queryset = Producer.visible_objects.all()
+    paginate_by = 20
 
 
 @method_decorator([csrf_protect, never_cache], name='dispatch')

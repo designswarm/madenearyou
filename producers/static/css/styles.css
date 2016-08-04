@@ -4,6 +4,17 @@ body {
     margin-bottom: 2rem;
 }
 
+#content:focus {
+	outline: none;
+}
+
+.page-title {
+	background: url(../img/logo.png) 0 0 no-repeat;
+	width: 200px;
+	height: 150px;
+	margin: 0 auto;
+}
+
 .map {
     border: 1px solid #000;
     width: 100%;

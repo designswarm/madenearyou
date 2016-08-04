@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 
-			<h2 class="h3">Products</h2>
+			<h3>Products</h3>
 
 			<ul>
 				{% for product in producer.products.all %}
@@ -18,7 +18,7 @@
 			
 			<hr>
 			
-			<h2 class="h3">Contact details</h2>
+			<h3>Contact details</h3>
 
 			{% if producer.contact_name %}
 				<p class="row">
@@ -66,7 +66,7 @@
 
 			<hr>
 
-			<h2 class="h3">Location</h2>
+			<h3>Location</h3>
 
 			{% if producer.postcode %}
 				<p class="row">
@@ -94,7 +94,7 @@
 			<div class="col-md-6 col-md-offset-3">
 				<hr>
 
-				<h2 class="h3">Images</h2>
+				<h3>Images</h3>
 
 				{% for i in producer.images.all %}
 					<p><img class="img-fluid" src="{{ i.image_medium.url }}" width="{{ i.image_medium.width }}" height="{{ i.image_height.height }}"></p>

@@ -24,7 +24,7 @@
 						{% if field.name == 'products' %}
 							<hr class="m-t-0">
 							<div class="p-l-1 m-b-2">
-								<h2 class="h6">Products{% if field.field.required %} <small class="text-muted">(Required)</small>{% endif %}</h2>
+								<h3 class="h6">Products{% if field.field.required %} <small class="text-muted">(Required)</small>{% endif %}</h3>
 								{% if field.help_text %}
 									<p><small class="text-muted">{{ field.help_text }}</small></p>
 								{% endif %}
@@ -52,7 +52,7 @@
 				<hr class="m-t-0">
 
 				<fieldset class="p-l-1 ">
-					<h2 class="h6">Images</h2>
+					<h3 class="h6">Images</h3>
 					<p><small class="text-muted">Optionally choose one or more images of your products.</small></p>
 					
 					{% if num_images_submitted %}

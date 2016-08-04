@@ -94,7 +94,7 @@ Set the buildpacks for Python and the stuff required for GeoDjango:
 Set the environment variables (replacing `your-secret-key-here` with one for your site ([eg, from here](http://www.miniwebtool.com/django-secret-key-generator/)):
 
 	$ heroku config:set DJANGO_SETTINGS_MODULE=madenearyou.settings.heroku
-	$ heroku config:set config:set DJANGO_SECRET_KEY=your-secret-key-here
+	$ heroku config:set DJANGO_SECRET_KEY=your-secret-key-here
 
 Push code to the server:
 
@@ -137,7 +137,7 @@ Under the Services menu, go to S3.
 
 Create a new bucket.
 
-In the bucket's Properties, open the Permissions panel, then "Edit bucket policy". Paste the following into the window. Replace `BUCKETNAME` with the name of your bucket. And replace `arn:aws:iam::1234567890:user/USERNAME` with the User ARN value noted earlier. Save the policy.
+In the bucket's Properties, open the Permissions panel, then "Add bucket policy". Paste the following into the window. Replace `BUCKETNAME` with the name of your bucket. And replace `arn:aws:iam::1234567890:user/USERNAME` with the User ARN value noted earlier. Save the policy.
 
 	{
 		"Version": "2012-10-17",

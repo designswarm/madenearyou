@@ -20,13 +20,13 @@
         {% endblock %}
     </head>
     <body>
-		<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+        <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
         <div class="container">
             <div class="row m-t-1">
                 <div class="col-md-6 col-md-offset-3">
-					<h1 class="text-hide page-title">
-						Made Near You
-					</h1>
+                    <h1 class="text-hide page-title">
+                        Made Near You
+                    </h1>
                 </div>
             </div>
 
@@ -45,18 +45,18 @@
                 </div>
             </div>
 
-			<div id="content" tabindex="-1">
-				{% block page_title_container %}
-					<div class="row m-b-2">
-						<div class="col-md-6 col-md-offset-3">
-							<h1>{% block page_title %}{% endblock %}</h1>
-						</div>
-					</div>
-				{% endblock page_title_container %}
+            <div id="content" tabindex="-1">
+                {% block page_title_container %}
+                    <div class="row m-b-2">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h1>{% block page_title %}{% endblock %}</h1>
+                        </div>
+                    </div>
+                {% endblock page_title_container %}
 
-				{% block content %}
-				{% endblock content %}
-			</div>
+                {% block content %}
+                {% endblock content %}
+            </div>
 
         </div>
 

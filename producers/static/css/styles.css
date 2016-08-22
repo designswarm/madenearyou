@@ -1,7 +1,12 @@
 
 body {
-    margin-top: 1rem;
     margin-bottom: 2rem;
+}
+
+.navbar-label {
+    /* Because I can't see how to add non-link content to .navbar. */
+    float: left;
+    margin: 0.425rem 1rem 0.425rem 0;
 }
 
 #content:focus {
@@ -12,7 +17,7 @@ body {
 	background: url(../img/logo.png) 0 0 no-repeat;
 	width: 200px;
 	height: 150px;
-	margin: 0 auto;
+	margin: 1rem auto 0 auto;
 }
 
 .map {

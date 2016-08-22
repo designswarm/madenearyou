@@ -44,9 +44,6 @@ class FindProducerForm(HoneypotFormMixin, forms.Form):
 class ProducerForm(HoneypotFormMixin, forms.ModelForm):
     products = forms.ModelMultipleChoiceField(queryset=Product.objects.all())
 
-    if settings.USE_RECAPTCHA:
-        captcha = ReCaptchaField(label="Anti-spam test")
-
     class Meta:
         model = Producer
         # The order the fields will appear in the form:
@@ -71,6 +68,9 @@ class ProducerForm(HoneypotFormMixin, forms.ModelForm):
         self.fields['products'].widget = forms.widgets.CheckboxSelectMultiple()
         self.fields['products'].queryset = Product.objects.all()
 
+        if settings.USE_RECAPTCHA:
+            self.fields['captcha'] = ReCaptchaField(label="Anti-spam test")
+
     def clean_postcode(self):
         value = self.cleaned_data['postcode']
         if value:
@@ -84,7 +84,20 @@ class ProducerForm(HoneypotFormMixin, forms.ModelForm):
         return value.strip()
 
 
+class ProducerAdminForm(ProducerForm):
+    """
+    A variation of the Producer form that only Admin users see, which has
+    no captcha field.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if 'captcha' in self.fields:
+            del self.fields['captcha']
+
+
+
 # For the part of the Producer form that lists 3 upload fields for images.
 ProducerImageFormset = inlineformset_factory(Producer, ProducerImage,
                                                 fields=('image',), max_num=3 )
-

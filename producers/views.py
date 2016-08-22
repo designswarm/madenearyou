@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
-from .forms import ProducerForm, FindProducerForm, ProducerImageFormset
+from .forms import ProducerForm, ProducerAdminForm, FindProducerForm, ProducerImageFormset
 from .models import Producer
 
 from . import validators
@@ -58,7 +58,6 @@ class HomeView(FlatPageMixin, ListView):
 @method_decorator([csrf_protect, never_cache], name='dispatch')
 class ProducerAddView(FormView):
     template_name = 'producers/producer_add.html'
-    form_class = ProducerForm
     success_url = reverse_lazy('producer_add_thanks')
 
     def get_context_data(self, **kwargs):
@@ -72,6 +71,15 @@ class ProducerAddView(FormView):
         context['num_images_submitted'] = len(self.request.FILES)
 
         return context
+
+    def get_form_class(self):
+        """
+        Returns the form class to use in this view
+        """
+        if self.request.user.is_superuser:
+            return ProducerAdminForm
+        else:
+            return ProducerForm
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()

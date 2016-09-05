@@ -109,10 +109,6 @@ class ProducerAddView(FormView):
                                     form=form, image_formset=image_formset))
 
 
-class ProducerAddThanksView(TemplateView):
-    template_name = 'producers/producer_add_thanks.html'
-
-
 @method_decorator([csrf_protect, never_cache], name='dispatch')
 class MapView(FormView):
     template_name = 'producers/find.html'

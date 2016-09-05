@@ -28,7 +28,8 @@ urlpatterns = [
         name='producer_add'),
 
     url(r'^producer/add/thanks/$',
-        views.ProducerAddThanksView.as_view(),
+        flatpages_views.flatpage,
+        {'url': '/producer/add/thanks/'},
         name='producer_add_thanks'),
 
     url(r'^producer/(?P<pk>\d*)/$',

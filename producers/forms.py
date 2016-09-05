@@ -90,12 +90,16 @@ class ProducerAdminForm(ProducerForm):
     no captcha field and automatically sets the Producer to visible.
     """
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if 'captcha' in self.fields:
             del self.fields['captcha']
+
+    def clean_products(self):
+        v = self.cleaned_data['products']
+        print(v)
+        return v
 
     def save(self, commit=True):
         "Set `is_visible` to be true if added by an Admin."
@@ -105,6 +109,7 @@ class ProducerAdminForm(ProducerForm):
 
         if commit:
             m.save()
+            self._save_m2m()
 
         return m
 

@@ -34,9 +34,15 @@ class ProducerImageInline(admin.TabularInline):
     readonly_fields = ['admin_thumbnail']
 
 
+def make_visible(modeladmin, request, queryset):
+    queryset.update(is_visible=True)
+make_visible.short_description = "Mark selected producers as visible"
+
+
 @admin.register(Producer)
 class ProducerAdmin(admin.ModelAdmin):
     list_display = ('business_name', 'is_visible', 'time_created',)
+    actions = [make_visible]
 
     fieldsets = (
         (None, {

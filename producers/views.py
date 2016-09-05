@@ -95,7 +95,14 @@ class ProducerAddView(FormView):
         producer = form.save()
         image_formset.instance = producer
         img = image_formset.save()
-        return HttpResponseRedirect(self.get_success_url())
+
+        if producer.is_visible:
+            # Presumably added by an admin, so we can see it:
+            return HttpResponseRedirect(reverse_lazy('producer_detail',
+                                                    kwargs={'pk': producer.pk}))
+        else:
+            # Added by a normal user, so not visible yet:
+            return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, image_formset):
         return self.render_to_response(self.get_context_data(

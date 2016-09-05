@@ -87,8 +87,9 @@ class ProducerForm(HoneypotFormMixin, forms.ModelForm):
 class ProducerAdminForm(ProducerForm):
     """
     A variation of the Producer form that only Admin users see, which has
-    no captcha field.
+    no captcha field and automatically sets the Producer to visible.
     """
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -96,6 +97,16 @@ class ProducerAdminForm(ProducerForm):
         if 'captcha' in self.fields:
             del self.fields['captcha']
 
+    def save(self, commit=True):
+        "Set `is_visible` to be true if added by an Admin."
+
+        m = super().save(commit=False)
+        m.is_visible = True
+
+        if commit:
+            m.save()
+
+        return m
 
 
 # For the part of the Producer form that lists 3 upload fields for images.

@@ -6,7 +6,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>{% block head_title %}{% block title %}{% endblock %} ({{ site_name }}){% endblock %}</title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
 
         {% load static from staticfiles %}
         <link rel="stylesheet" href="{% static "css/styles.css" %}">
@@ -47,7 +47,7 @@
 
         <div class="container">
             <div class="row m-t-1">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6 offset-md-3">
                     <h1 class="text-hide page-title">
                         Made Near You
                     </h1>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="row m-b-1" role="navigation">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6 offset-md-3">
                     <hr>
                     <ul class="nav nav-inline p-x-1">
                         <li class="nav-item">
@@ -72,7 +72,7 @@
             <div id="content" tabindex="-1">
                 {% block page_title_container %}
                     <div class="row m-b-2">
-                        <div class="col-md-6 col-md-offset-3">
+                        <div class="col-md-6 offset-md-3">
                             <h2>{% block page_title %}{% endblock %}</h2>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
         {# Use this if you need to add JS etc to the foot of the page. #}
         {% comment %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
         {% endcomment %}
     {% endblock %}
     </body>

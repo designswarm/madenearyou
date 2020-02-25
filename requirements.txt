@@ -4,7 +4,7 @@ django-imagekit==3.3
 django-recaptcha
 git+https://github.com/syapse/django-storages.git@boto3-new#egg=django-storages
 dj-database-url==0.4.1
-Django==1.9.13
+Django==1.11.28
 gunicorn==19.6.0
 phonenumbers==7.4.4
 pillow==3.3.0

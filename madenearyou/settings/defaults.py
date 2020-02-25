@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.setdefault('DJANGO_SECRET_KEY', '')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -144,4 +145,3 @@ USE_RECAPTCHA = True
 NOCAPTCHA = True
 RECAPTCHA_PUBLIC_KEY = os.environ.setdefault('RECAPTCHA_PUBLIC_KEY', '')
 RECAPTCHA_PRIVATE_KEY = os.environ.setdefault('RECAPTCHA_PRIVATE_KEY', '')
-

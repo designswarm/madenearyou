@@ -89,7 +89,13 @@ In the top level of your checked-out code, add Heroku as a git remote (replacing
 Set the buildpacks for Python and the stuff required for GeoDjango:
 
 	$ heroku buildpacks:set heroku/python
-	$ heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3
+    $ heroku buildpacks:add --index 1 heroku-community/apt
+
+I *think* you need to set this:
+
+    $ heroku config:set BUILD_WITH_GEO_LIBRARIES: 1
+
+(Maybe we could just use [this buildpack](https://elements.heroku.com/buildpacks/heroku/heroku-geo-buildpack) in future?)
 
 Set the environment variables (replacing `your-secret-key-here` with one for your site ([eg, from here](http://www.miniwebtool.com/django-secret-key-generator/)):
 

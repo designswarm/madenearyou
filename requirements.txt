@@ -10,5 +10,6 @@ phonenumbers==7.4.4
 pillow==3.3.0
 psycopg2==2.8.4
 requests==2.10.0
+sentry-sdk==0.14.1
 uk-postcode-utils==0.1.0
 whitenoise==3.2

@@ -3,6 +3,8 @@ import logging
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
 from django.urls import reverse
+# From https://stackoverflow.com/a/48894881/250962:
+from django.db.models import Manager as GeoManager
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
@@ -96,7 +98,7 @@ class Producer(TimeStampedModelMixin, models.Model):
 
     products = models.ManyToManyField(Product)
 
-    objects = models.GeoManager()
+    objects = GeoManager()
 
     # Only producers with is_visible=True:
     visible_objects = managers.VisibleProducersManager()

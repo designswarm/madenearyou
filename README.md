@@ -76,8 +76,6 @@ So I had to:
 
 ## Heroku
 
-**NOTE:** Currently using [an updated fork of django-storages](https://github.com/syapse/django-storages/tree/boto3-new) because the default version [doesn't currently support boto3](https://github.com/jschneier/django-storages/pull/111) (Python 3 version of boto) as a backend. When it does, we can switch to the default version. Will probably involve changing `runtime.txt` to a different python version, pushing to Heroku, changing it back, pushing again (to delete all python modules and reinstall).
-
 Create your app on Heroku.
 
 Add the "Heroku Postgres" Add-on.
@@ -116,8 +114,6 @@ If setting up the database from scratch, run initial migrations and set the Djan
 
 	$ heroku run python manage.py migrate
 	$ heroku run python manage.py createsuperuser
-
-**AND** don't forget to run that `migrate` command whenever pushing code with new migrations to Heroku!
 
 For the Recaptcha on the Add Producer form to work, [sign up](https://www.google.com/recaptcha/intro/index.html), add a key, and add then:
 
@@ -187,4 +183,3 @@ Set Heroku config values as here, replacing the values with those for your bucke
 	$ heroku config:set AWS_ACCESS_KEY_ID=YOUR-ACCESS-KEY-ID
 	$ heroku config:set AWS_SECRET_ACCESS_KEY=YOUR-SECRET-ACCESS-KEY
 	$ heroku config:set AWS_STORAGE_BUCKET_NAME=your-bucket-name
-

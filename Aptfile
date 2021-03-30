@@ -1,4 +1,0 @@
-# List of things to install using on Heroku
-# https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt
-libgeos-dev
-libproj-dev

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.gis import geos, measure
 from django.contrib.gis.db.models.functions import Distance
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, FormView, ListView, TemplateView
@@ -207,4 +207,3 @@ class ProducerDetailView(DetailView):
         # Includes the map JS:
         context['include_map'] = True
         return context
-

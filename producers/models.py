@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.gis import geos
 from django.contrib.gis.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.forms.models import model_to_dict
@@ -159,4 +159,3 @@ def set_location(sender, instance, **kwargs):
                                                 (instance.postcode, str(e)))
             # Unset whatever's there.
             instance.point = None
-

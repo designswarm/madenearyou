@@ -17,7 +17,6 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.sites.models import Site
 
 
 urlpatterns = [
@@ -30,6 +29,4 @@ if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-current_site = Site.objects.get_current()
-admin.site.site_header = '%s Admin' % current_site.name
-
+admin.site.site_header = 'Made Near You Admin'

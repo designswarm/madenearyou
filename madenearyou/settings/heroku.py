@@ -5,9 +5,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from .defaults import *
 
 
-DATABASES['default'] =  dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-
 ALLOWED_HOSTS = [".herokuapp.com", "www.madenearyou.org", "madenearyou.org",]
 
 # Set up for django-storages to store Media files on S3.

@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+boto3 = "*"
+django-imagekit = "*"
+django-recaptcha = "*"
+django-storages = "*"
+dj-database-url = "*"
+django = "~=2.2"
+gunicorn = "*"
+phonenumbers = "*"
+pillow = "*"
+psycopg2 = "*"
+requests = "*"
+sentry-sdk = "*"
+uk-postcode-utils = "*"
+whitenoise = "*"
+
+[dev-packages]
+django-debug-toolbar = "*"
+
+[requires]
+python_version = "3.8"

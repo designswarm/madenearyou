@@ -1,0 +1,39 @@
+version: '3.9'
+
+# For use in development only.
+
+services:
+  # Postgres
+  db:
+    container_name: madenearyou_db
+    env_file: .env
+    # Found via https://stackoverflow.com/a/53581553/250962 :
+    image: mdillon/postgis:10-alpine
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Application
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    command: >
+      sh -c "
+      pipenv run python manage.py migrate &&
+      pipenv run python -Wd manage.py runserver 0.0.0.0:8000
+      "
+    container_name: madenearyou_web
+    depends_on:
+      - db
+    env_file: .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - .:/code
+
+volumes:
+  postgres_data:

@@ -50,7 +50,7 @@ class Product(TimeStampedModelMixin, models.Model):
 class ProducerImage(TimeStampedModelMixin, models.Model):
     "The images that can be attached to Producers. Uploaded by users."
 
-    producer = models.ForeignKey('Producer', related_name='images')
+    producer = models.ForeignKey('Producer', on_delete=models.CASCADE, related_name='images')
 
     image = models.ImageField(upload_to='producers')
 

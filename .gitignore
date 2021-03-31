@@ -1,6 +1,4 @@
-.vagrant
-gunicorn.log
-django.log
+.env
 madenearyou/staticfiles
 madenearyou/media
-
+.vscode
